@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import main.Driver;
-import main.API;
+import main.DeletionAPI;
 
 
 
@@ -16,7 +16,7 @@ import main.API;
 public class Main {
 
 	public static void main(String[] args) throws SQLException{
-		String[] credentials = {"root", "8723fy96", "feedback"};
+		String[] credentials = {"", "", ""};
 		
 		Connection conn = null;
 		Driver sqlManager = null;
@@ -33,7 +33,7 @@ public class Main {
 		
 		if(conn != null) {
 			//API sqlDaemon = new API();
-			API.removeColumn(conn, "comments", "dummy");
+			DeletionAPI.removeColumn(conn, "", "");
 		}
 		else {
 			System.out.println("Connection is null.");
