@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 import main.Driver;
 import main.DeletionAPI;
-
+import main.InsertionAPI;
+import main.ManipulationAPI;
 
 
 @SuppressWarnings("unused")
@@ -32,8 +33,8 @@ public class Main {
 		}
 		
 		if(conn != null) {
-			//API sqlDaemon = new API();
-			DeletionAPI.removeColumn(conn, "", "");
+			//Do mySQL stuff here.
+			
 		}
 		else {
 			System.out.println("Connection is null.");
@@ -50,3 +51,6 @@ public class Main {
 	}
 
 }
+
+
+

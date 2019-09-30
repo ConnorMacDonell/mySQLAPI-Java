@@ -3,7 +3,6 @@ package main;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class InsertionAPI {
 	
@@ -17,7 +16,8 @@ public class InsertionAPI {
 	
 	public static void insertData(Connection connection, String tableName, String attributes, String values)
 			throws SQLException {
-		String sql = "insert into '" + tableName + "'(" + attributes + ")" + " values(" + values + ");";
+		
+		String sql = "insert into " + tableName + "(" + attributes + ")" + " values(" + values + ");";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		System.out.println("Preparing to insert row...");
 		
@@ -38,6 +38,7 @@ public class InsertionAPI {
 	
 	public static void addColumn(Connection conn, String tableName, String name, String type)
 			throws SQLException {
+		
 		String sql = "alter table " + tableName + " add column " + name + " " + type + ";";
 		PreparedStatement preparedStatement = conn.prepareStatement(sql);
 		
@@ -57,15 +58,18 @@ public class InsertionAPI {
 	 */
 	
 	public static void createTable(Connection conn, String tableName, String columnData) throws SQLException {
-		if (!columnData.contains("primary key") && !columnData.contains("PRIMARY KEY"))
+		
+		if (!columnData.contains("primary key") && !columnData.contains("PRIMARY KEY")) {
 			columnData = "id integer primary key not null auto_increment" + columnData;
+		}
+		
 		String sql = "create table if not exists " + tableName + "(" + columnData + ");";
-		Statement Statement = conn.createStatement();
+		PreparedStatement preparedStatement = conn.prepareStatement(sql);
 		
 		System.out.println("Preparing to create table...");
 		
-		Statement.executeUpdate(sql);
-		Statement.close();
+		preparedStatement.executeUpdate(sql);
+		preparedStatement.close();
 		
 		System.out.println("Table created.");
 	}
