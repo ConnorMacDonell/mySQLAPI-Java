@@ -2,6 +2,7 @@ package main;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -11,6 +12,7 @@ import main.Driver;
 import main.DeletionAPI;
 import main.InsertionAPI;
 import main.ManipulationAPI;
+import main.QueryAPI;
 
 
 @SuppressWarnings("unused")
@@ -33,8 +35,18 @@ public class Main {
 		}
 		
 		if(conn != null) {
-			//Do mySQL stuff here.
-			
+			ResultSet results = QueryAPI.getDataQuery(conn, "select salary from employees");
+			int i = 1;
+			while(results.next()) {
+				System.out.println(results.getString(1));
+			}
+			if(results != null) {
+				try {
+					results.close();
+				}
+				catch(Exception e) {}
+			}
+			results = null;
 		}
 		else {
 			System.out.println("Connection is null.");

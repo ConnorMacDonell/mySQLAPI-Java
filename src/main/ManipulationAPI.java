@@ -77,7 +77,7 @@ public class ManipulationAPI {
 	}
 	
 	/**
-	 * Updates a row
+	 * Uses update replace to edit part of a string value
 	 * 
 	 * @param conn: connection to database
 	 * @param tableName: name of table containing row to be updated
