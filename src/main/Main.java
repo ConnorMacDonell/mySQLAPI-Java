@@ -19,7 +19,7 @@ import main.QueryAPI;
 public class Main {
 
 	public static void main(String[] args) throws SQLException{
-		String[] credentials = {"", "", ""};
+		String[] credentials = {"root", "8723fy96", "test"};
 		
 		Connection conn = null;
 		Driver sqlManager = null;
@@ -35,10 +35,10 @@ public class Main {
 		}
 		
 		if(conn != null) {
-			ResultSet results = QueryAPI.getDataQuery(conn, "select salary from employees");
+			ResultSet results = QueryAPI.getData(conn, "*", "employes", "salary asc", "2");
 			int i = 1;
 			while(results.next()) {
-				System.out.println(results.getString(1));
+				System.out.println(results.getString(2));
 			}
 			if(results != null) {
 				try {
