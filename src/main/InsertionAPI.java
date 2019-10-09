@@ -14,17 +14,25 @@ public class InsertionAPI {
 	 * @param values:      String csv of entries for column in attributes
 	 */
 	
-	public static void insertData(Connection connection, String tableName, String attributes, String values)
+	public static void insertData(Connection conn, String tableName, String attributes, String values)
 			throws SQLException {
 		
 		String sql = "insert into " + tableName + "(" + attributes + ")" + " values(" + values + ");";
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		System.out.println("Preparing to insert row...");
+		PreparedStatement preparedStatement = null;
 		
-		preparedStatement.execute();
-		preparedStatement.close();
-		
-		System.out.println("Row inserted.");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to insert row...");
+			preparedStatement.execute();
+			System.out.println("Row inserted.");
+		}
+		catch(SQLException e) {
+			System.out.println("Data insertion failed.");
+			e.printStackTrace();
+		}
+		finally {
+			preparedStatement.close();
+		}
 	}
 	
 	/**
@@ -40,14 +48,25 @@ public class InsertionAPI {
 			throws SQLException {
 		
 		String sql = "alter table " + tableName + " add column " + name + " " + type + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
 		
-		System.out.println("Preparing to add column...");
+		PreparedStatement preparedStatement = null;
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to add column...");
+			preparedStatement.execute();
+			System.out.println("Column added.");
+		}
 		
-		System.out.println("Column added.");
+		catch(SQLException e) {
+			System.out.println("Column insertion failed.");
+			e.printStackTrace();
+		}
+		
+		finally {
+			preparedStatement.close();
+		}
+		
 	}
 	
 	/**
@@ -64,14 +83,23 @@ public class InsertionAPI {
 		}
 		
 		String sql = "create table if not exists " + tableName + "(" + columnData + ");";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Preparing to create table...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to create table...");
+			preparedStatement.execute();
+			System.out.println("Table created.");
+		}
 		
-		preparedStatement.executeUpdate(sql);
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Table creation failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Table created.");
+		finally {
+			preparedStatement.close();
+		}
 	}
 
 }

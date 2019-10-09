@@ -206,6 +206,7 @@ public class QueryAPI {
 	 * @param conn: connection to database
 	 * @return ArrayList<String> containing database schema
 	 */
+	
 	public static ArrayList<String> getSchema(Connection conn) {
 		ArrayList<String> output = new ArrayList<String>();
 		try {
@@ -217,7 +218,7 @@ public class QueryAPI {
 			}
 			schemas.close();
 		} catch (SQLException e) {
-			System.err.println("Retrieval of Schema Info failed!");
+			System.err.println("Retrieval of Schema Info failed.");
 			e.printStackTrace();
 			output.clear();
 		}
