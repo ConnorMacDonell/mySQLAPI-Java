@@ -15,14 +15,23 @@ public class ManipulationAPI {
 	 */
 	public static void renameTable(Connection conn, String oldName, String newName) throws SQLException {
 		String sql = "alter table " + oldName + " rename to " + newName + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Preparing to rename table...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to rename table...");
+			preparedStatement.execute();
+			System.out.println("Data rename table.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Renaming failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Table renamed.");
+		finally {
+			preparedStatement.close();
+		}
 	}
 
 	/**
@@ -38,14 +47,23 @@ public class ManipulationAPI {
 
 	public static void updateRow(Connection conn, String tableName, String columnVals, String condition) throws SQLException {
 		String sql = "update " + tableName + " set " + columnVals + " where " + condition + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Preparing to update column(s)...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to update column(s)...");
+			preparedStatement.execute();
+			System.out.println("Column(s) updated.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Column updating failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Column(s) updated.");
+		finally {
+			preparedStatement.close();
+		}
 	
 	}
 
@@ -65,14 +83,23 @@ public class ManipulationAPI {
 
 	public static void updateALLRows(Connection conn, String tableName, String columnVals) throws SQLException {
 		String sql = "update " + tableName + " set " + columnVals + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Preparing to update column(s) in all rows...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to update column(s) in all rows...");
+			preparedStatement.execute();
+			System.out.println("Column(s) in all rows updated.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Column updating failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Column(s) updated.");
+		finally {
+			preparedStatement.close();
+		}
 	
 	}
 	
@@ -92,14 +119,23 @@ public class ManipulationAPI {
 			String replaceOrig, String replaceFinal) throws SQLException {
 		String sql = "update " + tableName + " set " + columnName + " = replace(" + columnName +
 				", '" + replaceOrig + "' , '" + replaceFinal + "') where " + condition + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Preparing to update column(s)...");
-			
-		preparedStatement.execute();
-		preparedStatement.close();
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to update column(s)...");
+			preparedStatement.execute();
+			System.out.println("Column(s) updated.");
+		}
 		
-		System.out.println("Column(s) updated.");
+		catch(SQLException e) {
+			System.out.println("Column updating failed.");
+			e.printStackTrace();
+		}
+		
+		finally {
+			preparedStatement.close();
+		}
 		
 	}
 	

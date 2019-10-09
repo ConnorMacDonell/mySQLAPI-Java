@@ -18,15 +18,24 @@ public class DeletionAPI {
 	 */
 	
 	public static void removeData(Connection conn, String tableName, String condition) throws SQLException{
-		String sqlStatement = "delete from '" + tableName + "' where " + condition + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sqlStatement);
+		String sql = "delete from '" + tableName + "' where " + condition + ";";
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Removing row...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to delete data...");
+			preparedStatement.execute();
+			System.out.println("Data deleted.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
-
-		System.out.println("Row removed.");
+		catch(SQLException e) {
+			System.out.println("Data deletion failed.");
+			e.printStackTrace();
+		}
+		
+		finally {
+			preparedStatement.close();
+		}
 		
 	}
 	
@@ -40,16 +49,24 @@ public class DeletionAPI {
 	 */
 	
 	public static void removeColumn(Connection conn, String tableName, String columnName) throws SQLException {
-		String sqlStatement = "alter table " + tableName + " drop column " + columnName + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sqlStatement);
+		String sql = "alter table " + tableName + " drop column " + columnName + ";";
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Removing column...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to delete column...");
+			preparedStatement.execute();
+			System.out.println("Column deleted.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
-
-		System.out.println("Column removed.");
-
+		catch(SQLException e) {
+			System.out.println("Column deletion failed.");
+			e.printStackTrace();
+		}
+		
+		finally {
+			preparedStatement.close();
+		}
 	}
 	
 	/**
@@ -61,15 +78,24 @@ public class DeletionAPI {
 	 */
 	
 	public static void removeTable(Connection conn, String tableName) throws SQLException{
-		String sqlStatement = "drop table if exists " + tableName + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sqlStatement);
+		String sql = "drop table if exists " + tableName + ";";
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Removing table...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to delete table...");
+			preparedStatement.execute();
+			System.out.println("Table deleted.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Table deletion failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Table removed.");
+		finally {
+			preparedStatement.close();
+		}
 	}
 	
 	/**
@@ -81,14 +107,23 @@ public class DeletionAPI {
 	 */
 	
 	public static void removeDatabase(Connection conn, String databaseName) throws SQLException{
-		String sqlStatement = "drop database if exists " + databaseName + ";";
-		PreparedStatement preparedStatement = conn.prepareStatement(sqlStatement);
+		String sql = "drop database if exists " + databaseName + ";";
+		PreparedStatement preparedStatement = null;
 		
-		System.out.println("Remove database...");
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			System.out.println("Preparing to delete database...");
+			preparedStatement.execute();
+			System.out.println("Database deleted.");
+		}
 		
-		preparedStatement.execute();
-		preparedStatement.close();
+		catch(SQLException e) {
+			System.out.println("Database deletion failed.");
+			e.printStackTrace();
+		}
 		
-		System.out.println("Database removed.");
+		finally {
+			preparedStatement.close();
+		}
 	}
 }
